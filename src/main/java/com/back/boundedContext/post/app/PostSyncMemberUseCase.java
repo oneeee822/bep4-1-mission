@@ -4,9 +4,9 @@ import com.back.boundedContext.post.domain.PostMember;
 import com.back.boundedContext.post.out.PostMemberRepository;
 import com.back.shared.post.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 @RequiredArgsConstructor
 public class PostSyncMemberUseCase {
     private final PostMemberRepository postMemberRepository;
