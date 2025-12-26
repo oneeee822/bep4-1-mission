@@ -2,8 +2,6 @@ package com.back.boundedContext.post.app;
 
 import com.back.boundedContext.post.domain.Post;
 import com.back.boundedContext.post.domain.PostMember;
-import com.back.boundedContext.post.out.PostMemberRepository;
-import com.back.boundedContext.post.out.PostRepository;
 import com.back.global.rsData.RsData;
 import com.back.shared.post.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
@@ -16,12 +14,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class PostFacade {
-    private final PostRepository postRepository;
-    private final PostMemberRepository postMemberRepository;
     private final PostWriteUseCase postWriteUseCase;
+    private final PostSyncMemberUseCase postSyncMemberUseCase;
+    private final PostSupport postSupport;
 
     public long count() {
-        return postRepository.count();
+        return postSupport.count();
     }
 
     @Transactional
@@ -30,25 +28,15 @@ public class PostFacade {
     }
 
     public Optional<Post> findById(int id) {
-        return postRepository.findById(id);
+        return postSupport.findById(id);
     }
 
     @Transactional
     public PostMember syncMember(MemberDto member) {
-        PostMember postMember = new PostMember(
-                member.getId(),
-                member.getCreateDate(),
-                member.getModifyDate(),
-                member.getUsername(),
-                "",
-                member.getNickname(),
-                member.getActivityScore()
-        );
-
-        return postMemberRepository.save(postMember);
+        return postSyncMemberUseCase.save(member);
     }
 
-    public Optional<PostMember> findPostMemberByUsername(String username) {
-        return postMemberRepository.findByUsername(username);
+    public Optional<PostMember> findMemberByUsername(String username) {
+        return postSupport.findMemberByUsername(username);
     }
 }
