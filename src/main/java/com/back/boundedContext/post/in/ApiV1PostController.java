@@ -18,7 +18,7 @@ import java.util.List;
 public class ApiV1PostController {
     private final PostFacade postFacade;
 
-    @GetMapping
+    @GetMapping("/posts")
     public List<PostDto> getItems() {
         return postFacade
                 .findByOrderByIdDesc()
