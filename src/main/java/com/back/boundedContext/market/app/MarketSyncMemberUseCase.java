@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class MarketSyncMemberUseCase {
     private final MarketMemberRepository marketMemberRepository;
-    private EventPublisher eventPublisher;
+    private final EventPublisher eventPublisher;
 
     public MarketMember syncMember(MemberDto member) {
         boolean isNew = !marketMemberRepository.existsById(member.getId());
