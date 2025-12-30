@@ -3,13 +3,11 @@ package com.back.boundedContext.post.app;
 import com.back.boundedContext.post.domain.Post;
 import com.back.boundedContext.post.domain.PostMember;
 import com.back.global.rsData.RsData;
-import com.back.shared.post.dto.MemberDto;
-import com.back.shared.post.dto.PostDto;
+import com.back.shared.member.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 

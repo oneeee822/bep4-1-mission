@@ -2,7 +2,7 @@ package com.back.boundedContext.member.domain;
 
 import com.back.shared.post.event.MemberModifiedEvent;
 import com.back.shared.member.domain.SourceMember;
-import com.back.shared.post.dto.MemberDto;
+import com.back.shared.member.dto.MemberDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -17,12 +17,23 @@ public class Member extends SourceMember {
         super(username, password, nickname);
     }
 
+    public MemberDto toDto(){
+        return new MemberDto(
+                getId(),
+                getCreateDate(),
+                getModifyDate(),
+                getUsername(),
+                getNickname(),
+                getActivityScore()
+        );
+    }
+
     public int increaseActivityScore(int amount){
         if (amount == 0) return getActivityScore();
 
         setActivityScore(getActivityScore() + amount);
 
-        publishEvent(new MemberModifiedEvent(new MemberDto(this)));
+        publishEvent(new MemberModifiedEvent(toDto()));
 
         return getActivityScore();
     }
