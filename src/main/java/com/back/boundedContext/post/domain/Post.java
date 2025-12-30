@@ -56,7 +56,7 @@ public class Post extends BaseIdAndTime {
 
         comments.add(postComment);
 
-        publishEvent(new PostCommentCreatedEvent(new PostCommentDto(postComment)));
+        publishEvent(new PostCommentCreatedEvent(postComment.toDto()));
 
         return postComment;
     }
