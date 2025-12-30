@@ -1,6 +1,5 @@
 package com.back.boundedContext.market.domain;
 
-
 import com.back.global.jpa.entity.BaseIdAndTime;
 import com.back.shared.market.dto.OrderItemDto;
 import jakarta.persistence.Entity;
@@ -52,7 +51,17 @@ public class OrderItem extends BaseIdAndTime {
                 productName,
                 price,
                 salePrice,
-                payoutRate
+                payoutRate,
+                getPayoutFee(),
+                getSalePriceWithoutFee()
         );
+    }
+
+    public long getPayoutFee() {
+        return MarketPolicy.calculatePayoutFee(getSalePrice(), getPayoutRate());
+    }
+
+    public long getSalePriceWithoutFee() {
+        return MarketPolicy.calculateSalePriceWithoutFee(getSalePrice(), getPayoutRate());
     }
 }
